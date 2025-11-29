@@ -141,7 +141,7 @@ export default function EtkinlikDetay({ etkinlik }: EtkinlikDetayProps) {
             {/* Sağ Kolon: İletişim & Konum */}
             <div className="space-y-6">
               <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100  top-24">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Bilet & Konum</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-6">İletişim Bilgileri</h3>
 
                 <div className="space-y-6">
                   {etkinlik.adres && (
@@ -151,7 +151,14 @@ export default function EtkinlikDetay({ etkinlik }: EtkinlikDetayProps) {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-gray-900 mb-1">Adres</p>
-                        <p className="text-gray-600 text-sm leading-relaxed">{etkinlik.adres}</p>
+                        <a
+                          href={etkinlik.konum || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-600 text-sm leading-relaxed hover:text-[#23C8B9] transition-colors"
+                        >
+                          {etkinlik.adres}
+                        </a>
                       </div>
                     </div>
                   )}
@@ -163,7 +170,7 @@ export default function EtkinlikDetay({ etkinlik }: EtkinlikDetayProps) {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-gray-900 mb-1">Bilet Fiyatı</p>
-                        <p className="text-gray-600 text-sm">{etkinlik.fiyat}</p>
+                        <p className="text-gray-600 text-sm">{etkinlik.fiyat} ₺</p>
                       </div>
                     </div>
                   )}
