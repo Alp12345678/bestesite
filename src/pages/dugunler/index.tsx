@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Footer from '@/components/Footer/Footer';
+
 import Filtreler from '@/components/Genel/Filtreler';
 import HizmetKarti from '@/components/Dugun/HizmetKarti';
 import { DUGUN_KATEGORILERI, DUGUN_KATEGORI_BILGILERI } from '@/veriler/kategoriler';
@@ -76,8 +76,6 @@ export default function Dugunler() {
           )}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

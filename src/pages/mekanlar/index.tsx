@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Footer from '@/components/Footer/Footer';
+
 import Filtreler from '@/components/Genel/Filtreler';
 import MekanKarti from '@/bilesenler/MekanKarti';
 import { MEKAN_KATEGORILERI, MEKAN_KATEGORI_BILGILERI } from '@/veriler/kategoriler';
@@ -76,8 +76,6 @@ export default function MekanlarPage() {
           )}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

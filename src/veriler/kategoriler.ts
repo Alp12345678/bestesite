@@ -65,7 +65,6 @@ export const DUGUN_KATEGORILERI = [
   { label: 'Fotoğraf & Video', key: 'fotograf' },
   { label: 'Gelinlik & Moda', key: 'gelinlik' },
   { label: 'Düğün Pastası', key: 'pasta' },
-  { label: 'Müzik & Eğlence', key: 'muzik' },
 ];
 
 export const DUGUN_KATEGORI_BILGILERI: Record<string, KategoriBilgisi> = {
@@ -105,53 +104,39 @@ export const DUGUN_KATEGORI_BILGILERI: Record<string, KategoriBilgisi> = {
     description: 'Düğününüzü tatlandıracak özel tasarım pastalar ve ikramlıklar.',
     heroImage: '/dugun/pasta.jpg',
   },
-  muzik: {
-    label: 'Müzik & Eğlence',
-    title: 'Müzik ve Eğlence',
-    description: 'Orkestra, DJ ve canlı müzik gruplarıyla eğlence dolu bir düğün.',
-    heroImage: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80',
-  },
 };
 
 // ETKİNLİK KATEGORİLERİ
 export const ETKINLIK_KATEGORILERI = [
   { label: 'Tümü', key: 'tumu' },
-  { label: 'Resim', key: 'resim' },
-  { label: 'Boyama', key: 'boyama' },
-  { label: 'Heykel', key: 'heykel' },
-  { label: 'Parfüm', key: 'parfum' },
+  { label: 'Konser', key: 'konser' },
+  { label: 'Tiyatro', key: 'tiyatro' },
+  { label: 'Workshop', key: 'workshop' },
 ];
 
 export const ETKINLIK_KATEGORI_BILGILERI: Record<string, KategoriBilgisi> = {
   tumu: {
     label: 'Tümü',
     title: 'Etkinlikler & Atölyeler',
-    description: 'Yeteneklerinizi keşfedin, yeni hobiler edinin ve keyifli vakit geçirin.',
+    description: 'Şehrin en iyi konserleri, tiyatro oyunları ve yaratıcı workshopları.',
     heroImage: 'https://images.unsplash.com/photo-1459749411177-3c2ea1f61c4d?w=1600&q=80',
   },
-  resim: {
-    label: 'Resim',
-    title: 'Resim Atölyeleri',
-    description:
-      'Tuval üzerine yağlı boya, akrilik ve sulu boya teknikleriyle sanatınızı konuşturun.',
-    heroImage: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600&q=80',
+  konser: {
+    label: 'Konser',
+    title: 'Konserler',
+    description: 'Sevdiğiniz sanatçıların canlı performansları ve müzik dolu geceler.',
+    heroImage: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1600&q=80',
   },
-  boyama: {
-    label: 'Boyama',
-    title: 'Boyama Etkinlikleri',
-    description: 'Seramik, ahşap ve tekstil boyama atölyeleriyle renklerin dünyasına dalın.',
-    heroImage: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1600&q=80',
+  tiyatro: {
+    label: 'Tiyatro',
+    title: 'Tiyatro Oyunları',
+    description: 'Sahne sanatlarının en seçkin örnekleri ve unutulmaz oyunlar.',
+    heroImage: 'https://images.unsplash.com/photo-1507676184212-d0370926727c?w=1600&q=80',
   },
-  heykel: {
-    label: 'Heykel',
-    title: 'Heykel & Seramik Kursları',
-    description: 'Çamurla tanışın, ellerinizle şekil verin ve kendi sanat eserinizi yaratın.',
-    heroImage: 'https://images.unsplash.com/photo-1501445162440-80252834c608?w=1600&q=80',
-  },
-  parfum: {
-    label: 'Parfüm',
-    title: 'Parfüm Yapım Atölyesi',
-    description: 'Kendi imza kokunuzu tasarlayın ve aromaterapinin büyüleyici dünyasını keşfedin.',
-    heroImage: 'https://images.unsplash.com/photo-1595535373192-fc0437bc5a77?w=1600&q=80',
+  workshop: {
+    label: 'Workshop',
+    title: 'Workshop & Atölye',
+    description: 'Yeni beceriler edinebileceğiniz yaratıcı atölye çalışmaları.',
+    heroImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80',
   },
 };
