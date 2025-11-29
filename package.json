@@ -9,6 +9,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@jsdevtools/rehype-toc": "^3.0.2",
     "cloudinary": "^2.8.0",
     "date-fns": "^4.1.0",

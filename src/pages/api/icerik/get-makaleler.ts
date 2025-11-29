@@ -8,7 +8,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const pageInt = parseInt(page as string, 10);
   const limitInt = parseInt(limit as string, 10);
 
-  const dirPath = path.join(process.cwd(), 'src/content/icerik');
+  const dirPath = path.join(process.cwd(), 'src/icerik');
 
   if (!fs.existsSync(dirPath)) {
     return res.status(200).json({ posts: [], totalCount: 0 });

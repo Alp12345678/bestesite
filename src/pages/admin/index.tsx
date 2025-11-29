@@ -5,7 +5,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
 import { collection, addDoc, getCountFromServer } from 'firebase/firestore';
 import { MekanVerisi } from '@/types';
-import Modal from '@/components/adminpages/Modal';
+import Modal from '@/components/AdminPages/VeriModal';
+import YaziModal from '@/components/AdminPages/Yazi/YaziModal';
+import VeriSilmeModal from '@/components/AdminPages/VeriSilmeModal';
+import PopulerModal from '@/components/AdminPages/PopulerModal';
+import YaziListeModal from '@/components/AdminPages/Yazi/YaziListeModal';
 import {
   FaStore,
   FaRing,
@@ -15,6 +19,9 @@ import {
   FaSignOutAlt,
   FaTrash,
   FaStar,
+  FaPenFancy,
+  FaListUl,
+  FaEdit,
 } from 'react-icons/fa';
 
 // Constants
@@ -26,6 +33,21 @@ const ADD_ACTIONS = [
     icon: FaCalendarAlt,
     type: 'etkinlik',
     color: 'bg-purple-500 hover:bg-purple-600',
+  },
+];
+
+const BLOG_ACTIONS = [
+  {
+    label: 'Blog Yazısı Ekle',
+    icon: FaPenFancy,
+    type: 'blog_ekle',
+    color: 'bg-teal-500 hover:bg-teal-600',
+  },
+  {
+    label: 'Blog Yazısı Düzenle/Sil',
+    icon: FaListUl,
+    type: 'blog_listele',
+    color: 'bg-teal-600 hover:bg-teal-700',
   },
 ];
 
@@ -42,16 +64,10 @@ const DELETE_ACTIONS = [
 
 const POPULAR_ACTIONS = [
   {
-    label: 'Popüler Mekan Ekle',
+    label: 'Popüler Mekan Yönet',
     icon: FaStar,
     type: 'populer_ekle',
     color: 'bg-yellow-500 hover:bg-yellow-600',
-  },
-  {
-    label: 'Popüler Mekan Sil',
-    icon: FaStar,
-    type: 'populer_sil',
-    color: 'bg-yellow-600 hover:bg-yellow-700',
   },
 ];
 
@@ -65,7 +81,14 @@ export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isYaziModalOpen, setIsYaziModalOpen] = useState(false);
+  const [isYaziListeModalOpen, setIsYaziListeModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isPopulerModalOpen, setIsPopulerModalOpen] = useState(false);
   const [modalType, setModalType] = useState<any>('mekan');
+  const [deleteModalType, setDeleteModalType] = useState<any>('mekan_sil');
+  const [yaziModalMode, setYaziModalMode] = useState<'create' | 'edit'>('create');
+  const [editSlug, setEditSlug] = useState<string>('');
 
   // İstatistik state'leri
   const [stats, setStats] = useState({
@@ -111,14 +134,45 @@ export default function AdminDashboard() {
   };
 
   const handleAction = (type: string) => {
-    // Şimdilik sadece ekleme işlemleri için modal açıyoruz
-    // Silme ve popüler işlemleri için ileride mantık eklenecek
+    // Blog işlemleri
+    if (type === 'blog_ekle') {
+      setYaziModalMode('create');
+      setEditSlug('');
+      setIsYaziModalOpen(true);
+      return;
+    }
+
+    if (type === 'blog_listele') {
+      setIsYaziListeModalOpen(true);
+      return;
+    }
+
+    // Popüler mekan yönetimi
+    if (type === 'populer_ekle') {
+      setIsPopulerModalOpen(true);
+      return;
+    }
+
+    // Silme işlemleri
+    if (['mekan_sil', 'dugun_sil', 'etkinlik_sil'].includes(type)) {
+      setDeleteModalType(type as 'mekan_sil' | 'dugun_sil' | 'etkinlik_sil');
+      setIsDeleteModalOpen(true);
+      return;
+    }
+
+    // Ekleme işlemleri
     if (['mekan', 'dugun', 'etkinlik'].includes(type)) {
       setModalType(type);
       setIsModalOpen(true);
     } else {
       alert('Bu özellik henüz yapım aşamasında.');
     }
+  };
+
+  const handleEditBlogPost = (slug: string) => {
+    setEditSlug(slug);
+    setYaziModalMode('edit');
+    setIsYaziModalOpen(true);
   };
 
   const handleSaveData = async (data: Partial<MekanVerisi>) => {
@@ -229,8 +283,8 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          {/* Actions Grid - 3 Columns */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Actions Grid - 4 Columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1: Add Actions */}
             <div className={CARD_STYLE}>
               <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b border-gray-100">
@@ -302,6 +356,30 @@ export default function AdminDashboard() {
                 ))}
               </div>
             </div>
+
+            {/* Column 4: Blog Actions */}
+            <div className={CARD_STYLE}>
+              <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b border-gray-100">
+                <div className="p-2 bg-teal-100 rounded-lg">
+                  <FaPenFancy className="text-teal-600" />
+                </div>
+                Blog Yazıları
+              </h2>
+              <div className="space-y-3">
+                {BLOG_ACTIONS.map((action, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleAction(action.type)}
+                    className={`w-full ${action.color} text-white p-4 rounded-xl font-medium transition-all transform hover:scale-[1.02] active:scale-95 flex items-center gap-3 shadow-md group`}
+                  >
+                    <div className="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
+                      <action.icon className="text-xl" />
+                    </div>
+                    <span>{action.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </main>
       </div>
@@ -313,6 +391,31 @@ export default function AdminDashboard() {
         type={modalType}
         onSave={handleSaveData}
       />
+
+      {/* Yazi Modal */}
+      <YaziModal
+        isOpen={isYaziModalOpen}
+        onClose={() => setIsYaziModalOpen(false)}
+        mode={yaziModalMode}
+        editSlug={editSlug}
+      />
+
+      {/* Yazi Liste Modal */}
+      <YaziListeModal
+        isOpen={isYaziListeModalOpen}
+        onClose={() => setIsYaziListeModalOpen(false)}
+        onEdit={handleEditBlogPost}
+      />
+
+      {/* Veri Silme Modal */}
+      <VeriSilmeModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        type={deleteModalType}
+      />
+
+      {/* Popüler Modal */}
+      <PopulerModal isOpen={isPopulerModalOpen} onClose={() => setIsPopulerModalOpen(false)} />
     </>
   );
 }

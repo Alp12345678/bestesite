@@ -17,13 +17,16 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isHome = router.pathname === '/';
 
+  // Admin ve login sayfalarında navbar/footer gösterme
+  const hideNavAndFooter = router.pathname.startsWith('/admin') || router.pathname === '/login';
+
   return (
     <div className={`${montserrat.variable} font-sans`}>
-      <Navbar isHome={isHome} />
+      {!hideNavAndFooter && <Navbar isHome={isHome} />}
       <div id="main-content">
         <Component {...pageProps} />
       </div>
-      <Footer />
+      {!hideNavAndFooter && <Footer />}
     </div>
   );
 }
