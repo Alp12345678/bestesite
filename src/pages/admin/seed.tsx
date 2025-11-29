@@ -49,6 +49,11 @@ export default function SeedPage() {
           kategori: kat.label,
           // Tüm resimler aynı olsun isteği üzerine:
           resim: '/images/popular-venue-2.png',
+          galeri: [
+            '/images/popular-venue-2.png',
+            '/images/popular-venue-2.png',
+            '/images/popular-venue-2.png',
+          ],
 
           ilce: 'Alsancak',
           adres: 'Örnek Adres No:1',
@@ -72,6 +77,12 @@ export default function SeedPage() {
           url: `ornek-${kat.key}`,
           kategori: kat.label,
           resim: '/images/popular-venue-2.png',
+          galeri: [
+            '/dugun/mekan.jpg',
+            '/dugun/foto.jpg',
+            '/dugun/organizasyon.jpg',
+            '/dugun/pasta.jpg',
+          ],
 
           ilce: 'Çeşme',
           adres: 'Örnek Düğün Adresi',
@@ -94,6 +105,11 @@ export default function SeedPage() {
           url: `ornek-${kat.key}`,
           kategori: kat.label,
           resim: '/images/popular-venue-2.png',
+          galeri: [
+            '/images/popular-venue-2.png',
+            '/images/popular-venue-2.png',
+            '/images/popular-venue-2.png',
+          ],
 
           ilce: 'Urla',
           adres: 'Sanat Sokağı',
@@ -103,6 +119,14 @@ export default function SeedPage() {
           durum: 'aktif',
           fiyat: '350',
           tarih: '25 Ekim 2023',
+          aciklama: `Bu etkinlikte, ${kat.label} alanında uzman eğitmenler eşliğinde keyifli bir deneyim yaşayacaksınız.
+
+          Etkinlik İçeriği:
+          - Temel teknikler
+          - Uygulamalı çalışmalar
+          - Soru & Cevap
+
+          Tüm malzemeler tarafımızdan karşılanacaktır. Kontenjan sınırlıdır, hemen yerinizi ayırtın!`,
         };
         batch.set(docRef, { ...data, type: 'etkinlik', createdAt: new Date().toISOString() });
       });

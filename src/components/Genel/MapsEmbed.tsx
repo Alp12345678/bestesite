@@ -17,12 +17,12 @@ const MapsEmbed: React.FC<MapsEmbedProps> = ({ konum, baslik, adres, koordinat }
     const embedUrl = `https://maps.google.com/maps?q=${cleanCoord}&hl=tr&z=15&output=embed`;
 
     return (
-      <div className="w-full h-full min-h-[300px] rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50">
+      <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50">
         <iframe
           src={embedUrl}
           width="100%"
           height="100%"
-          style={{ border: 0, minHeight: '300px' }}
+          style={{ border: 0 }}
           allowFullScreen={true}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
@@ -35,12 +35,12 @@ const MapsEmbed: React.FC<MapsEmbedProps> = ({ konum, baslik, adres, koordinat }
   // 2. Eğer konum bir embed linki ise direkt kullan
   if (konum && (konum.includes('embed') || konum.includes('output=embed'))) {
     return (
-      <div className="w-full h-full min-h-[300px] rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50">
+      <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50">
         <iframe
           src={konum}
           width="100%"
           height="100%"
-          style={{ border: 0, minHeight: '300px' }}
+          style={{ border: 0 }}
           allowFullScreen={true}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
