@@ -49,10 +49,12 @@ export default function SeedPage() {
           kategori: kat.label,
           // Tüm resimler aynı olsun isteği üzerine:
           resim: '/images/popular-venue-2.png',
-          puan: 5.0,
-          yorumSayisi: 10,
+
           ilce: 'Alsancak',
           adres: 'Örnek Adres No:1',
+          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
+          koordinat: '38.42624707332537, 27.13658353815675',
+          instagram: 'izmirde.sen',
           durum: 'aktif',
           fiyat: '500', // Sadece rakam
           populer: Math.random() > 0.5, // %50 şansla popüler
@@ -70,10 +72,12 @@ export default function SeedPage() {
           url: `ornek-${kat.key}`,
           kategori: kat.label,
           resim: '/images/popular-venue-2.png',
-          puan: 4.9,
-          yorumSayisi: 5,
+
           ilce: 'Çeşme',
           adres: 'Örnek Düğün Adresi',
+          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
+          koordinat: '38.42624707332537, 27.13658353815675',
+          instagram: 'izmirde.sen',
           durum: 'aktif',
           fiyat: '50.000',
         };
@@ -90,10 +94,12 @@ export default function SeedPage() {
           url: `ornek-${kat.key}`,
           kategori: kat.label,
           resim: '/images/popular-venue-2.png',
-          puan: 4.8,
-          yorumSayisi: 20,
+
           ilce: 'Urla',
           adres: 'Sanat Sokağı',
+          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
+          koordinat: '38.42624707332537, 27.13658353815675',
+          instagram: 'izmirde.sen',
           durum: 'aktif',
           fiyat: '350',
           tarih: '25 Ekim 2023',

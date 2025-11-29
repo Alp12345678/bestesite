@@ -57,7 +57,7 @@ const Populer = () => {
       <div className="container mx-auto px-4">
         {/* Başlık Bölümü */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-dancing font-bold text-gray-900 mb-4">Popüler Mekanlar</h2>
+          <h2 className="text-5xl  font-bold text-gray-900 mb-4">Popüler Mekanlar</h2>
           {/* Başlık altındaki dekoratif çizgi */}
           <div className="w-24 h-1 bg-[#23C8B9] mx-auto rounded-full opacity-80"></div>
         </div>

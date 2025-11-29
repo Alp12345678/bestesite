@@ -1,6 +1,7 @@
 import AboneOl from '@/components/AboneOl/Abone';
 import Blog from '@/components/Blog/Blog';
-import Footer from '@/components/Footer/Footer';
+import MapsEmbed from '@/components/Genel/MapsEmbed';
+
 import Populer from '@/components/Populer/Populer';
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
       <Populer />
       <AboneOl />
       <Blog />
-      <Footer />
+      <MapsEmbed />
     </div>
   );
 }

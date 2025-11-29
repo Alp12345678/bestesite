@@ -10,7 +10,7 @@ const BLOG_POSTS = [
     excerpt:
       "Alsancak'tan Bostanlı'ya, kahve tutkunları için şehrin en iyi duraklarını sizin için derledik. Aromatik çekirdekler ve samimi ortamlar...",
     date: '28 Kasım 2024',
-    author: 'Beste Gezgin',
+    author: 'Beste Caner',
     image: '/blog/blog-1.jpg',
     category: 'Yeme & İçme',
     featured: true,
@@ -70,7 +70,7 @@ const Blog = () => {
       <div className="container mx-auto px-4">
         {/* Başlık */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-dancing font-bold text-gray-900 mb-4">Son Yazılar</h2>
+          <h2 className="text-5xl  font-bold text-gray-900 mb-4">Son Yazılar</h2>
           <div className="w-24 h-1 bg-primary-500 mx-auto rounded-full opacity-80"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             İzmir'in nabzını tutan en güncel içerikler, mekan önerileri ve gezi rehberleri.

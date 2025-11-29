@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-open-sans), sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   background-color: #e9ebea;
 }

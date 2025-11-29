@@ -92,7 +92,7 @@ const HeroSection = ({
 }) => (
   <div className="flex-grow flex flex-col items-center justify-center px-4 text-center -mt-4 md:mt-0">
     <div className="mb-6 md:mb-10 animate-fade-in-up">
-      <h1 className="text-white font-dancing text-4xl md:text-7xl font-bold tracking-tight drop-shadow-xl">
+      <h1 className="text-white  text-4xl md:text-7xl font-bold tracking-tight drop-shadow-xl">
         <span className="font-normal block text-[#23C8B9] mb-1 md:mb-2 text-5xl md:text-8xl">
           İzmir’in
         </span>

@@ -33,7 +33,7 @@ export default function EtkinliklerPage() {
           </div>
 
           <div className="relative z-20 text-center text-white px-4">
-            <h1 className="text-5xl md:text-6xl font-dancing font-bold mb-4 drop-shadow-lg animate-fade-in">
+            <h1 className="text-5xl md:text-6xl  font-bold mb-4 drop-shadow-lg animate-fade-in">
               {activeCategoryInfo.title}
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-light drop-shadow-md">

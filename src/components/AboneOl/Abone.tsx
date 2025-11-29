@@ -26,7 +26,7 @@ export default function AboneOl() {
           {/* Sol: Bülten Aboneliği */}
           <div className="w-full lg:w-1/2 space-y-8">
             <div className="space-y-4">
-              <span className="text-[#23C8B9] font-dancing text-4xl md:text-5xl font-bold">
+              <span className="text-[#23C8B9]  text-4xl md:text-5xl font-bold">
                 Keşfetmeye Hazır mısın?
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
@@ -80,9 +80,14 @@ export default function AboneOl() {
                       <p className="text-xs text-gray-500">İzmir'in Kalbi Burada Atıyor</p>
                     </div>
                   </div>
-                  <button className="bg-[#23C8B9]/10 text-[#23C8B9] px-5 py-2 rounded-full text-sm font-bold hover:bg-[#23C8B9] hover:text-white transition-all duration-300">
+                  <a
+                    href="https://www.instagram.com/izmirde.sen/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#23C8B9]/10 text-[#23C8B9] px-5 py-2 rounded-full text-sm font-bold hover:bg-[#23C8B9] hover:text-white transition-all duration-300"
+                  >
                     Takip Et
-                  </button>
+                  </a>
                 </div>
 
                 {/* Instagram Embed Bileşeni */}

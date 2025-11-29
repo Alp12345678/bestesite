@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaStar, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { MekanVerisi } from '@/types';
 
 interface EtkinlikKartiProps {
@@ -10,7 +10,7 @@ interface EtkinlikKartiProps {
 
 const EtkinlikKarti: React.FC<EtkinlikKartiProps> = ({ etkinlik }) => {
   return (
-    <Link href={`/etkinlik/${etkinlik.url}`} className="block h-full">
+    <Link href={`/etkinlikler/${etkinlik.url}`} className="block h-full">
       <div className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
         {/* Görsel */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100">
@@ -32,19 +32,6 @@ const EtkinlikKarti: React.FC<EtkinlikKartiProps> = ({ etkinlik }) => {
           <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-1 group-hover:text-[#23C8B9] transition-colors">
             {etkinlik.baslik}
           </h3>
-
-          {/* Puanlama */}
-          <div className="flex items-center gap-1 mb-2">
-            <div className="flex text-yellow-400 text-xs">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={i < Math.floor(etkinlik.puan) ? 'text-yellow-400' : 'text-gray-300'}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-gray-500 font-medium">({etkinlik.yorumSayisi})</span>
-          </div>
 
           {/* Konum */}
           <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-1">

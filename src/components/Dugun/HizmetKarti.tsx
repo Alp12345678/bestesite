@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaStar, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { MekanVerisi } from '@/types';
 
 interface HizmetKartiProps {
@@ -10,7 +10,7 @@ interface HizmetKartiProps {
 
 const HizmetKarti: React.FC<HizmetKartiProps> = ({ hizmet }) => {
   return (
-    <Link href={`/hizmet/${hizmet.url}`} className="block h-full">
+    <Link href={`/dugunler/${hizmet.url}`} className="block h-full">
       <div className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
         {/* Görsel */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100">
@@ -33,19 +33,6 @@ const HizmetKarti: React.FC<HizmetKartiProps> = ({ hizmet }) => {
             {hizmet.baslik}
           </h3>
 
-          {/* Puanlama */}
-          <div className="flex items-center gap-1 mb-2">
-            <div className="flex text-yellow-400 text-xs">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={i < Math.floor(hizmet.puan) ? 'text-yellow-400' : 'text-gray-300'}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-gray-500 font-medium">({hizmet.yorumSayisi})</span>
-          </div>
-
           {/* Konum */}
           <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-3">
             <FaMapMarkerAlt className="text-[#23C8B9] text-xs" />
@@ -53,11 +40,7 @@ const HizmetKarti: React.FC<HizmetKartiProps> = ({ hizmet }) => {
           </div>
 
           {/* Fiyat ve Buton */}
-          <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-xs text-gray-400">Başlangıç</span>
-              <span className="text-[#23C8B9] font-bold text-lg">{hizmet.fiyat} ₺</span>
-            </div>
+          <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-end">
             <div className="bg-gray-900 text-white text-sm font-bold px-4 py-2 rounded-lg group-hover:bg-[#23C8B9] transition-colors">
               İncele
             </div>

@@ -22,7 +22,7 @@ const Footer = () => {
           {/* Marka ve Hakkında (Mobilde Ortalı) - LG: 4 Sütun */}
           <div className="lg:col-span-4 space-y-6 text-center lg:text-left">
             <Link href="/" className="inline-block group">
-              <h2 className="text-4xl font-dancing font-bold text-[#23C8B9] group-hover:text-emerald-500 transition-colors">
+              <h2 className="text-4xl  font-bold text-[#23C8B9] group-hover:text-emerald-500 transition-colors">
                 İzmirde Sen
               </h2>
             </Link>
@@ -85,7 +85,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center justify-center lg:justify-start gap-3 text-gray-500">
                 <FaEnvelope className="text-[#23C8B9] flex-shrink-0" />
-                <span>info@besteizmir.com</span>
+                <span>info@izmirdesen.com</span>
               </li>
             </ul>
           </div>
@@ -94,7 +94,7 @@ const Footer = () => {
         {/* Alt Çizgi ve Telif */}
         <div className="border-t border-gray-100 pt-8 mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm text-center md:text-left">
-            &copy; {currentYear} Beste İzmir. Tüm hakları saklıdır.
+            &copy; {currentYear} İzmirde Sen. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>İzmir'de</span>

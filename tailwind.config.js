@@ -4,8 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-open-sans)', 'sans-serif'],
-        dancing: ['var(--font-dancing-script)', 'cursive'],
+        sans: ['var(--font-montserrat)', 'sans-serif'],
       },
     },
   },
