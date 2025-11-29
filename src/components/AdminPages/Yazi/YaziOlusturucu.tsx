@@ -5,10 +5,11 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { FaCloudUploadAlt, FaTimes, FaPlus, FaTrash, FaSave } from 'react-icons/fa';
+import { BlogInitialData } from '@/types';
 
 interface ArticleCreatorProps {
   onSave?: (content: string, url: string) => void;
-  initialData?: any;
+  initialData?: BlogInitialData | null;
 }
 
 // Türkçe karakter destekli url (slug) oluşturma

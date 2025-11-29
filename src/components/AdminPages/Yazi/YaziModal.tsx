@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { FaTimes } from 'react-icons/fa';
 import YaziOlusturucu from './YaziOlusturucu';
+import { BlogInitialData } from '@/types';
 
 interface YaziModalProps {
   isOpen: boolean;
@@ -11,7 +12,7 @@ interface YaziModalProps {
 }
 
 export default function YaziModal({ isOpen, onClose, mode = 'create', editSlug }: YaziModalProps) {
-  const [initialData, setInitialData] = useState<any>(null);
+  const [initialData, setInitialData] = useState<BlogInitialData | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

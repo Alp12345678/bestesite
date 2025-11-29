@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
 import { collection, addDoc, getCountFromServer } from 'firebase/firestore';
-import { MekanVerisi } from '@/types';
+import { MekanVerisi, ModalType, DeleteModalType } from '@/types';
 import Modal from '@/components/AdminPages/VeriModal';
 import YaziModal from '@/components/AdminPages/Yazi/YaziModal';
 import VeriSilmeModal from '@/components/AdminPages/VeriSilmeModal';
@@ -78,15 +78,15 @@ const BUTTON_BASE =
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isYaziModalOpen, setIsYaziModalOpen] = useState(false);
   const [isYaziListeModalOpen, setIsYaziListeModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isPopulerModalOpen, setIsPopulerModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<any>('mekan');
-  const [deleteModalType, setDeleteModalType] = useState<any>('mekan_sil');
+  const [modalType, setModalType] = useState<ModalType>('mekan');
+  const [deleteModalType, setDeleteModalType] = useState<DeleteModalType>('mekan_sil');
   const [yaziModalMode, setYaziModalMode] = useState<'create' | 'edit'>('create');
   const [editSlug, setEditSlug] = useState<string>('');
 
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
 
     // Ekleme işlemleri
     if (['mekan', 'dugun', 'etkinlik'].includes(type)) {
-      setModalType(type);
+      setModalType(type as ModalType);
       setIsModalOpen(true);
     } else {
       alert('Bu özellik henüz yapım aşamasında.');

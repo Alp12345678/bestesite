@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, writeBatch, doc, getDocs, query } from 'firebase/firestore';
-import {
-  MEKAN_KATEGORILERI,
-  DUGUN_KATEGORILERI,
-  ETKINLIK_KATEGORILERI,
-} from '@/veriler/kategoriler';
-import { MekanVerisi } from '@/types';
+import { collection, writeBatch, getDocs, query } from 'firebase/firestore';
 
 export default function SeedPage() {
   const [status, setStatus] = useState<string>('');
@@ -23,116 +17,27 @@ export default function SeedPage() {
     await batch.commit();
   };
 
-  const resetAndSeed = async () => {
-    if (!confirm('DİKKAT: Tüm veritabanı silinecek ve baştan oluşturulacak. Emin misiniz?')) return;
+  const deleteAllData = async () => {
+    if (!confirm('⚠️ DİKKAT: TÜM VERİTABANI SİLİNECEK! Bu işlem geri alınamaz. Emin misiniz?'))
+      return;
 
     setLoading(true);
     setStatus('Veritabanı temizleniyor...');
 
     try {
-      // 1. Önce her şeyi sil
+      // Tüm koleksiyonları sil
       await clearCollection('mekanlar');
+      setStatus('✅ Mekanlar silindi...');
+
       await clearCollection('dugunler');
+      setStatus('✅ Mekanlar ve Düğünler silindi...');
+
       await clearCollection('etkinlikler');
+      setStatus('✅ Tüm veriler silindi!');
 
-      setStatus('Temizlik tamamlandı. Yeni veriler yükleniyor...');
-      const batch = writeBatch(db);
-
-      // 2. Mekanlar (Her kategoriden 1 tane)
-      MEKAN_KATEGORILERI.filter((k) => k.key !== 'tumu').forEach((kat, index) => {
-        const id = `mekan-${kat.key}`;
-        const docRef = doc(db, 'mekanlar', id);
-        const data: MekanVerisi = {
-          id: id,
-          baslik: `Örnek ${kat.label}`,
-          url: `ornek-${kat.key}`,
-          kategori: kat.label,
-          // Tüm resimler aynı olsun isteği üzerine:
-          resim: '/images/popular-venue-2.png',
-          galeri: [
-            '/images/popular-venue-2.png',
-            '/images/popular-venue-2.png',
-            '/images/popular-venue-2.png',
-          ],
-
-          ilce: 'Alsancak',
-          adres: 'Örnek Adres No:1',
-          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
-          koordinat: '38.42624707332537, 27.13658353815675',
-          instagram: 'izmirde.sen',
-          durum: 'aktif',
-          fiyat: '500', // Sadece rakam
-          populer: Math.random() > 0.5, // %50 şansla popüler
-        };
-        batch.set(docRef, { ...data, type: 'mekan', createdAt: new Date().toISOString() });
-      });
-
-      // 3. Düğünler (Her kategoriden 1 tane)
-      DUGUN_KATEGORILERI.filter((k) => k.key !== 'tumu').forEach((kat, index) => {
-        const id = `dugun-${kat.key}`;
-        const docRef = doc(db, 'dugunler', id);
-        const data: MekanVerisi = {
-          id: id,
-          baslik: `Örnek ${kat.label}`,
-          url: `ornek-${kat.key}`,
-          kategori: kat.label,
-          resim: '/images/popular-venue-2.png',
-          galeri: [
-            '/dugun/mekan.jpg',
-            '/dugun/foto.jpg',
-            '/dugun/organizasyon.jpg',
-            '/dugun/pasta.jpg',
-          ],
-
-          ilce: 'Çeşme',
-          adres: 'Örnek Düğün Adresi',
-          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
-          koordinat: '38.42624707332537, 27.13658353815675',
-          instagram: 'izmirde.sen',
-          durum: 'aktif',
-          fiyat: '50.000',
-        };
-        batch.set(docRef, { ...data, type: 'dugun', createdAt: new Date().toISOString() });
-      });
-
-      // 4. Etkinlikler (Her kategoriden 1 tane)
-      ETKINLIK_KATEGORILERI.filter((k) => k.key !== 'tumu').forEach((kat, index) => {
-        const id = `etkinlik-${kat.key}`;
-        const docRef = doc(db, 'etkinlikler', id);
-        const data: MekanVerisi = {
-          id: id,
-          baslik: `Örnek ${kat.label} Atölyesi`,
-          url: `ornek-${kat.key}`,
-          kategori: kat.label,
-          resim: '/images/popular-venue-2.png',
-          galeri: [
-            '/images/popular-venue-2.png',
-            '/images/popular-venue-2.png',
-            '/images/popular-venue-2.png',
-          ],
-
-          ilce: 'Urla',
-          adres: 'Sanat Sokağı',
-          konum: 'https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9',
-          koordinat: '38.42624707332537, 27.13658353815675',
-          instagram: 'izmirde.sen',
-          durum: 'aktif',
-          fiyat: '350',
-          tarih: '25 Ekim 2023',
-          aciklama: `Bu etkinlikte, ${kat.label} alanında uzman eğitmenler eşliğinde keyifli bir deneyim yaşayacaksınız.
-
-          Etkinlik İçeriği:
-          - Temel teknikler
-          - Uygulamalı çalışmalar
-          - Soru & Cevap
-
-          Tüm malzemeler tarafımızdan karşılanacaktır. Kontenjan sınırlıdır, hemen yerinizi ayırtın!`,
-        };
-        batch.set(docRef, { ...data, type: 'etkinlik', createdAt: new Date().toISOString() });
-      });
-
-      await batch.commit();
-      setStatus('✅ İŞLEM TAMAMLANDI! Her kategoriden 1 örnek veri yüklendi.');
+      setTimeout(() => {
+        setStatus('✅ İŞLEM TAMAMLANDI! Tüm veritabanı temizlendi.');
+      }, 500);
     } catch (error) {
       console.error(error);
       setStatus('❌ Hata: ' + (error as Error).message);
@@ -142,29 +47,87 @@ export default function SeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-red-50 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold mb-4 text-red-600">⚠️ Veritabanı Sıfırlama</h1>
-        <p className="text-gray-600 mb-8">
-          Bu işlem mevcut <b>TÜM VERİLERİ SİLER</b> ve her kategori için sadece 1 tane örnek veri
-          oluşturur.
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
+      <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-lg w-full text-center border-2 border-red-100">
+        <div className="mb-6">
+          <div className="text-6xl mb-4">🗑️</div>
+          <h1 className="text-3xl font-bold mb-3 text-gray-800">Veritabanı Yönetimi</h1>
+          <p className="text-gray-600 text-lg mb-2">
+            Bu sayfadan tüm veritabanı verilerini silebilirsiniz.
+          </p>
+        </div>
+
+        <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 mb-8">
+          <h2 className="text-xl font-bold text-red-700 mb-3">⚠️ UYARI</h2>
+          <p className="text-red-600 text-sm">
+            Bu işlem <b>TÜM VERİLERİ SİLER</b> ve <b>GERİ ALINAMAZ</b>.
+            <br />
+            <br />
+            Silinecek veriler:
+          </p>
+          <ul className="text-left text-sm text-red-700 mt-3 space-y-1">
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">•</span> Tüm Mekanlar
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">•</span> Tüm Düğünler
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">•</span> Tüm Etkinlikler
+            </li>
+          </ul>
+        </div>
 
         <button
-          onClick={resetAndSeed}
+          onClick={deleteAllData}
           disabled={loading}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-xl transition-colors disabled:opacity-50 shadow-lg hover:shadow-red-200"
+          className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-5 px-8 rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-red-300 transform hover:scale-105 active:scale-95"
         >
-          {loading ? 'İşlem Yapılıyor...' : '🔥 HEPSİNİ SİL VE ÖRNEK VERİ YÜKLE'}
+          {loading ? (
+            <span className="flex items-center justify-center gap-3">
+              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              İşlem Yapılıyor...
+            </span>
+          ) : (
+            <span className="flex items-center justify-center gap-2">
+              <span className="text-2xl">🔥</span>
+              TÜM VERİLERİ SİL
+            </span>
+          )}
         </button>
 
         {status && (
           <div
-            className={`mt-6 p-4 rounded-lg font-bold ${status.includes('❌') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}
+            className={`mt-6 p-5 rounded-xl font-semibold text-sm animate-fadeIn ${
+              status.includes('❌')
+                ? 'bg-red-100 text-red-800 border-2 border-red-200'
+                : 'bg-green-100 text-green-800 border-2 border-green-200'
+            }`}
           >
             {status}
           </div>
         )}
+
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <p className="text-xs text-gray-500">
+            💡 İpucu: Yeni veri eklemek için Admin Panel'i kullanın
+          </p>
+        </div>
       </div>
     </div>
   );
