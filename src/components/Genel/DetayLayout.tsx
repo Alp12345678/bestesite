@@ -170,7 +170,7 @@ export default function DetayLayout({ data, type }: DetayLayoutProps) {
                 <div className="flex gap-3 mt-8">
                   {/* Sabit Telefon */}
                   <a
-                    href="tel:905555555555"
+                    href="tel:+905052555079"
                     className="flex-1 bg-[#23C8B9] text-white py-4 rounded-xl font-bold hover:bg-[#1fa89b] transition-all duration-300 shadow-lg shadow-[#23C8B9]/20 flex items-center justify-center"
                   >
                     <FaPhone className="text-xl" />
@@ -178,7 +178,7 @@ export default function DetayLayout({ data, type }: DetayLayoutProps) {
 
                   {/* Sabit WhatsApp */}
                   <a
-                    href="https://wa.me/905555555555"
+                    href="https://wa.me/905052555079"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 bg-[#25D366] text-white py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition-all duration-300 shadow-lg shadow-[#25D366]/20 flex items-center justify-center"

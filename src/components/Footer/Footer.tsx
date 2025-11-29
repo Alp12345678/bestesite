@@ -3,9 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   FaInstagram,
-  FaTwitter,
-  FaFacebookF,
-  FaLinkedinIn,
+  FaTiktok,
+  FaYoutube,
   FaMapMarkerAlt,
   FaPhone,
   FaEnvelope,
@@ -31,10 +30,9 @@ const Footer = () => {
               bizimle keşfedin. Şehri yaşamanın en keyifli yolu.
             </p>
             <div className="flex items-center justify-center lg:justify-start gap-4">
-              <SocialLink href="#" icon={<FaInstagram />} />
-              <SocialLink href="#" icon={<FaTwitter />} />
-              <SocialLink href="#" icon={<FaFacebookF />} />
-              <SocialLink href="#" icon={<FaLinkedinIn />} />
+              <SocialLink href="izmirde.sen" icon={<FaInstagram />} />
+              <SocialLink href="izmirde.sen" icon={<FaTiktok />} />
+              <SocialLink href="izmirde.sen" icon={<FaYoutube />} />
             </div>
           </div>
 
@@ -45,11 +43,12 @@ const Footer = () => {
               <h3 className="text-xl font-bold mb-6 text-gray-900">Hızlı Erişim</h3>
               <ul className="space-y-3">
                 <FooterLink href="/" text="Anasayfa" />
-                <FooterLink href="#" text="Düğün" />
-                <FooterLink href="#" text="Mekanlar" />
-                <FooterLink href="#" text="Etkinlikler" />
-                <FooterLink href="#" text="Kariyer" />
-                <FooterLink href="#" text="İletişim" />
+                <FooterLink href="/dugunler" text="Düğün" />
+                <FooterLink href="/mekanlar" text="Mekanlar" />
+                <FooterLink href="/etkinlikler" text="Etkinlikler" />
+                <FooterLink href="/blog" text="Blog" />
+                <FooterLink href="/kariyer" text="Kariyer" />
+                <FooterLink href="/iletisim" text="İletişim" />
               </ul>
             </div>
 
@@ -57,12 +56,12 @@ const Footer = () => {
             <div className="text-center lg:text-left">
               <h3 className="text-xl font-bold mb-6 text-gray-900">Kategoriler</h3>
               <ul className="space-y-3">
-                <FooterLink href="#" text="Meyhane" />
-                <FooterLink href="#" text="Kahvaltı" />
-                <FooterLink href="#" text="Yemek" />
-                <FooterLink href="#" text="Gece Hayatı" />
-                <FooterLink href="#" text="Plaj" />
-                <FooterLink href="#" text="Cafe" />
+                <FooterLink href="/mekanlar?kategori=meyhane" text="Meyhane" />
+                <FooterLink href="/mekanlar?kategori=kahvalti" text="Kahvaltı" />
+                <FooterLink href="/mekanlar?kategori=yemek" text="Yemek" />
+                <FooterLink href="/mekanlar?kategori=gece-hayati" text="Gece Hayatı" />
+                <FooterLink href="/mekanlar?kategori=plaj" text="Plaj" />
+                <FooterLink href="/mekanlar?kategori=cafe" text="Cafe" />
               </ul>
             </div>
           </div>
@@ -71,28 +70,49 @@ const Footer = () => {
           <div className="lg:col-span-3 text-center lg:text-left">
             <h3 className="text-xl font-bold mb-6 text-gray-900">İletişim</h3>
             <ul className="space-y-4">
-              <li className="flex items-start justify-center lg:justify-start gap-3 text-gray-500">
-                <FaMapMarkerAlt className="text-[#23C8B9] mt-1 flex-shrink-0" />
-                <span className="text-center lg:text-left">
-                  Alsancak, Kordon Boyu No:123
-                  <br />
-                  Konak, İzmir
-                </span>
+              <li>
+                <a
+                  href="https://maps.app.goo.gl/6E5eSjt7QtsNCV1s9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start justify-center lg:justify-start gap-3 text-gray-500 hover:text-[#23C8B9] transition-colors group"
+                >
+                  <FaMapMarkerAlt className="text-[#23C8B9] mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-center lg:text-left">
+                    <strong>Picco Film</strong>
+                    <br />
+                    İsmet Kaptan Mah. Gazi Osman Paşa Blv.
+                    <br />
+                    No:3 D:812 Konak/İzmir
+                  </span>
+                </a>
               </li>
-              <li className="flex items-center justify-center lg:justify-start gap-3 text-gray-500">
-                <FaPhone className="text-[#23C8B9] flex-shrink-0" />
-                <span>+90 (232) 123 45 67</span>
+              <li>
+                <a
+                  href="https://wa.me/905052555079"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center lg:justify-start gap-3 text-gray-500 hover:text-[#23C8B9] transition-colors group"
+                >
+                  <FaPhone className="text-[#23C8B9] flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>+90 505 255 50 79</span>
+                </a>
               </li>
-              <li className="flex items-center justify-center lg:justify-start gap-3 text-gray-500">
-                <FaEnvelope className="text-[#23C8B9] flex-shrink-0" />
-                <span>info@izmirdesen.com</span>
+              <li>
+                <a
+                  href="mailto:info@izmirdesen.com"
+                  className="flex items-center justify-center lg:justify-start gap-3 text-gray-500 hover:text-[#23C8B9] transition-colors group"
+                >
+                  <FaEnvelope className="text-[#23C8B9] flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>info@izmirdesen.com</span>
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Alt Çizgi ve Telif */}
-        <div className="border-t border-gray-100 pt-8 mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-gray-100 cursor-default pt-8 mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm text-center md:text-left">
             &copy; {currentYear} İzmirde Sen. Tüm hakları saklıdır.
           </p>
