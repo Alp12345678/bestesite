@@ -33,11 +33,7 @@ const HizmetKarti: React.FC<HizmetKartiProps> = ({ hizmet }) => {
             {hizmet.baslik}
           </h3>
 
-          {/* Konum */}
-          <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-3">
-            <FaMapMarkerAlt className="text-[#23C8B9] text-xs" />
-            <span className="line-clamp-1">{hizmet.ilce}</span>
-          </div>
+          {/* Konum kaldırıldı */}
 
           {/* Fiyat ve Buton */}
           <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-end">

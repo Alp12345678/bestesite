@@ -55,10 +55,12 @@ export default function DetayLayout({ data, type }: DetayLayoutProps) {
 
             <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">{data.baslik}</h1>
 
-            <div className="flex items-center gap-2 text-white/90 text-lg">
-              <FaMapMarkerAlt className="text-[#23C8B9]" />
-              <span>{data.ilce}, İzmir</span>
-            </div>
+            {type !== 'dugun' && (
+              <div className="flex items-center gap-2 text-white/90 text-lg">
+                <FaMapMarkerAlt className="text-[#23C8B9]" />
+                <span>{data.ilce}, İzmir</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -120,7 +122,7 @@ export default function DetayLayout({ data, type }: DetayLayoutProps) {
               <h3 className="text-xl font-bold text-gray-900 mb-6">İletişim Bilgileri</h3>
 
               <div className="space-y-6">
-                {data.adres && (
+                {type !== 'dugun' && data.adres && (
                   <div className="flex gap-4">
                     <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
                       <FaMapMarkerAlt className="text-gray-400" />

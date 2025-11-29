@@ -94,9 +94,9 @@ const HeroSection = ({
     <div className="mb-6 md:mb-10 animate-fade-in-up">
       <h1 className="text-white  text-4xl md:text-7xl font-bold tracking-tight drop-shadow-xl">
         <span className="font-normal block text-[#23C8B9] mb-1 md:mb-2 text-5xl md:text-8xl">
-          İzmir’in
+          İzmir’de
         </span>
-        En Seçkin Mekanları
+        Ne Yapılır?
       </h1>
       <p className="mt-2 md:mt-4 text-gray-200 text-sm md:text-2xl font-light max-w-2xl mx-auto drop-shadow-md">
         Lezzet, eğlence ve keyif dolu anlar için şehrin en iyilerini keşfedin.
@@ -155,7 +155,7 @@ const MenuSection = () => (
 
 // --- ANA BİLEŞEN ---
 
-export default function Navbar() {
+export default function Navbar({ isHome = true }: { isHome?: boolean }) {
   const [query, setQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -164,17 +164,28 @@ export default function Navbar() {
   // Scroll dinleyicisi
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setScrolled(true);
+      // Anasayfada belli bir miktar inince, diğer sayfalarda hep scrolled gibi davranabiliriz
+      // veya diğer sayfalarda direkt static render edip scroll efektini kaldırabiliriz.
+      // Burada sadece anasayfa için scroll kontrolü yapıyoruz.
+      if (isHome) {
+        if (window.scrollY > 300) {
+          setScrolled(true);
+        } else {
+          setScrolled(false);
+          setMobileMenuOpen(false);
+        }
       } else {
-        setScrolled(false);
-        setMobileMenuOpen(false);
+        // Alt sayfalarda her zaman scrolled modunda gibi görünsün (veya static olsun)
+        setScrolled(true);
       }
     };
 
+    // İlk yüklemede durumu ayarla
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -188,27 +199,47 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 1. ORİJİNAL HERO NAVBAR (Sayfa başındayken görünen) */}
-      <div className="relative w-full min-h-screen font-sans">
-        <Background />
+      {/* 1. HERO NAVBAR (Sadece Anasayfada) */}
+      {isHome && (
+        <div className="relative w-full min-h-screen font-sans">
+          <Background />
 
-        <div className="relative z-10 flex flex-col min-h-screen w-full">
-          <LogoSection />
-          <HeroSection
-            query={query}
-            setQuery={setQuery}
-            handleSearch={handleSearch}
-            handleKeyDown={handleKeyDown}
-          />
-          <MenuSection />
+          <div className="relative z-10 flex flex-col min-h-screen w-full">
+            <LogoSection />
+            <HeroSection
+              query={query}
+              setQuery={setQuery}
+              handleSearch={handleSearch}
+              handleKeyDown={handleKeyDown}
+            />
+            <MenuSection />
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* 2. COMPACT STICKY NAVBAR (Scroll yapınca gelen) */}
+      {/* 2. STICKY / MAIN NAVBAR */}
+      {/* 
+          Anasayfada: Fixed, scroll olunca gelir (translate-y-0).
+          Diğer sayfalarda: Sticky veya Fixed, hep görünür.
+      */}
       <div
-        className={`fixed top-0 left-0 w-full z-[999] bg-white/95 backdrop-blur-md shadow-lg transition-transform duration-500 transform ${
-          scrolled ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`
+          fixed top-0 left-0 w-full z-[999] 
+          bg-white/95 backdrop-blur-md shadow-lg 
+          transition-all duration-500 ease-in-out
+          ${
+            isHome
+              ? scrolled
+                ? 'translate-y-0 opacity-100'
+                : '-translate-y-full opacity-0'
+              : 'translate-y-0 opacity-100 relative' // Diğer sayfalarda relative yaparak yer kaplamasını sağlıyoruz, ama fixed davranışı için sticky kullanabiliriz.
+          }
+        `}
+        // Not: Diğer sayfalarda "relative" yaparsak sayfa akışında yer kaplar.
+        // Ancak "fixed" yapıp body'ye padding vermek daha yaygın.
+        // Burada kullanıcının şikayeti scroll davranışıydı.
+        // Alt sayfalarda "sticky top-0" yaparak hem yer kaplamasını hem de yapışmasını sağlayalım.
+        style={!isHome ? { position: 'sticky', top: 0 } : {}}
       >
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between">
@@ -252,12 +283,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 3. FULL SCREEN MOBİL MENÜ (Navbar'dan bağımsız, fixed) */}
+      {/* 3. FULL SCREEN MOBİL MENÜ */}
       <div
         className={`xl:hidden fixed inset-0 z-[998] bg-white transition-all duration-300 pt-[70px] ${
-          mobileMenuOpen && scrolled
-            ? 'opacity-100 visible'
-            : 'opacity-0 invisible pointer-events-none'
+          mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
         <div className="h-full overflow-y-auto pb-20">
@@ -270,7 +299,7 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 border border-gray-100 active:scale-95 transition-all duration-200"
                 >
-                  <div className="text-[#23C8B9] mb-2">
+                  <div className="text--[#23C8B9] mb-2">
                     <div className="w-6 h-6">{item.icon}</div>
                   </div>
                   <span className="text-sm font-bold text-gray-700 text-center">{item.label}</span>
