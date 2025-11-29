@@ -71,7 +71,7 @@ export default function Galeri({ resimler, baslik }: GaleriProps) {
         >
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-50"
+            className="absolute top-10 right-4 text-white/70 hover:text-white p-2 z-50"
           >
             <FaTimes className="text-3xl" />
           </button>
