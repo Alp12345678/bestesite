@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.pathname, router.query, router.isReady]);
 
   return (
-    <div className={`${montserrat.variable}`}>
+    <div className={`${montserrat.variable} font-sans`}>
       <Navbar />
       <div id="main-content">
         <Component {...pageProps} />
