@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Head from 'next/head';
 import { FaCalendarAlt, FaUser, FaFolderOpen, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { parse, format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { NextSeo } from 'next-seo';
 
 interface BlogPost {
   id: string;
@@ -61,13 +61,29 @@ export default function BlogPage() {
 
   return (
     <>
-      <Head>
-        <title>Blog | İzmirde Sen</title>
-        <meta
-          name="description"
-          content="İzmir'deki etkinlikler, mekanlar ve düğünler hakkında güncel yazılar, rehberler ve haberler."
-        />
-      </Head>
+      <NextSeo
+        title="Blog | İzmirde Sen"
+        description="İzmir'deki etkinlikler, mekanlar ve düğünler hakkında güncel yazılar ve rehberler."
+        canonical="https://www.izmirdesen.com/blog"
+        openGraph={{
+          url: 'https://www.izmirdesen.com/blog',
+          title: 'Blog | İzmirde Sen',
+          description:
+            "İzmir'deki etkinlikler, mekanlar ve düğünler hakkında güncel yazılar, rehberler ve haberler.",
+          images: [
+            {
+              url: 'https://www.izmirdesen.com/og-image.png',
+              width: 1200,
+              height: 630,
+              alt: 'İzmirde Sen - Blog',
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <div ref={topRef} className="min-h-screen bg-[#F9FAFB] py-4">
         <div className="container mx-auto px-4">

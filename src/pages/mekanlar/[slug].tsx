@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { MekanVerisi } from '@/types';
 import DetayLayout from '@/components/Genel/DetayLayout';
+import { NextSeo } from 'next-seo';
 
 interface MekanDetayProps {
   mekan: MekanVerisi | null;
@@ -30,17 +30,42 @@ export default function MekanDetay({ mekan }: MekanDetayProps) {
     );
   }
 
+  // Description oluştur - 70-155 karakter arası
+  const createDescription = () => {
+    if (mekan.aciklama && mekan.aciklama.length >= 70) {
+      return mekan.aciklama.length > 155
+        ? mekan.aciklama.substring(0, 152) + '...'
+        : mekan.aciklama;
+    }
+    return `${mekan.baslik} - İzmir'deki en iyi mekanlardan biri. Detaylı bilgi, fotoğraflar ve yorumlar için tıklayın.`;
+  };
+
+  const imageUrl = mekan.kapak || 'https://www.izmirdesen.com/og-image.png';
+
   return (
     <>
-      <Head>
-        <title>{`${mekan.baslik} | İzmirde Sen`}</title>
-        <meta
-          name="description"
-          content={
-            mekan.aciklama || `${mekan.baslik} hakkında detaylı bilgiler, yorumlar ve fotoğraflar.`
-          }
-        />
-      </Head>
+      <NextSeo
+        title={`${mekan.baslik} | İzmirde Sen`}
+        description={createDescription()}
+        canonical={`https://www.izmirdesen.com/mekanlar/${mekan.url}`}
+        openGraph={{
+          url: `https://www.izmirdesen.com/mekanlar/${mekan.url}`,
+          title: `${mekan.baslik} | İzmirde Sen`,
+          description: createDescription(),
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: mekan.baslik,
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <DetayLayout data={mekan} type="mekan" />
     </>

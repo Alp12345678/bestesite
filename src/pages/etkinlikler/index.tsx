@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 import Filtreler from '@/components/Genel/Filtreler';
 import EtkinlikKarti from '@/components/Etkinlik/EtkinlikKarti';
@@ -12,10 +12,28 @@ export default function EtkinliklerPage() {
 
   return (
     <>
-      <Head>
-        <title>{`${activeCategoryInfo.title} | İzmirde Sen`}</title>
-        <meta name="description" content={activeCategoryInfo.description} />
-      </Head>
+      <NextSeo
+        title={`${activeCategoryInfo.title} | İzmirde Sen`}
+        description={activeCategoryInfo.description}
+        canonical={`https://www.izmirdesen.com/etkinlikler`}
+        openGraph={{
+          url: `https://www.izmirdesen.com/etkinlikler`,
+          title: `${activeCategoryInfo.title} | İzmirde Sen`,
+          description: activeCategoryInfo.description,
+          images: [
+            {
+              url: 'https://www.izmirdesen.com/og-image.png',
+              width: 1200,
+              height: 630,
+              alt: `${activeCategoryInfo.title} | İzmirde Sen`,
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <main className="bg-[#F9FAFB] min-h-screen pb-20">
         {/* Hero Bölümü */}

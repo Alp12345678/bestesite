@@ -1,0 +1,10 @@
+# Geliştirme Modu - Tüm botlar engellenmiş
+User-agent: *
+Disallow: /
+
+# Production'a geçtiğinde şunu kullan:
+# User-agent: *
+# Allow: /
+# Disallow: /admin
+# Disallow: /login
+# Sitemap: https://www.izmirdesen.com/sitemap.xml

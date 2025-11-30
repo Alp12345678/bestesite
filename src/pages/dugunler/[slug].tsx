@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { MekanVerisi } from '@/types';
 import DetayLayout from '@/components/Genel/DetayLayout';
+import { NextSeo } from 'next-seo';
 
 interface DugunDetayProps {
   hizmet: MekanVerisi | null;
@@ -30,18 +30,42 @@ export default function DugunDetay({ hizmet }: DugunDetayProps) {
     );
   }
 
+  // Description oluştur - 70-155 karakter arası
+  const createDescription = () => {
+    if (hizmet.aciklama && hizmet.aciklama.length >= 70) {
+      return hizmet.aciklama.length > 155
+        ? hizmet.aciklama.substring(0, 152) + '...'
+        : hizmet.aciklama;
+    }
+    return `${hizmet.baslik} - İzmir'de düğün organizasyonu için profesyonel hizmetler. Detaylar için tıklayın.`;
+  };
+
+  const imageUrl = hizmet.kapak || 'https://www.izmirdesen.com/og-image.png';
+
   return (
     <>
-      <Head>
-        <title>{`${hizmet.baslik} | İzmirde Sen`}</title>
-        <meta
-          name="description"
-          content={
-            hizmet.aciklama ||
-            `${hizmet.baslik} hakkında detaylı bilgiler, yorumlar ve fotoğraflar.`
-          }
-        />
-      </Head>
+      <NextSeo
+        title={`${hizmet.baslik} | İzmirde Sen`}
+        description={createDescription()}
+        canonical={`https://www.izmirdesen.com/dugunler/${hizmet.url}`}
+        openGraph={{
+          url: `https://www.izmirdesen.com/dugunler/${hizmet.url}`,
+          title: `${hizmet.baslik} | İzmirde Sen`,
+          description: createDescription(),
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: hizmet.baslik,
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <DetayLayout data={hizmet} type="dugun" />
     </>

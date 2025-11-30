@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import { FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { NextSeo } from 'next-seo';
 
 export default function Kariyer() {
   const [submitted, setSubmitted] = useState(false);
@@ -85,13 +85,28 @@ export default function Kariyer() {
 
   return (
     <>
-      <Head>
-        <title>Kariyer | İzmirde Sen</title>
-        <meta
-          name="description"
-          content="İzmirde Sen ekibine katılın! Başvuru formunu doldurarak bize katılın."
-        />
-      </Head>
+      <NextSeo
+        title="Kariyer | İzmirde Sen"
+        description="İzmirde Sen ekibine katılın! Başvuru formunu doldurun."
+        canonical="https://www.izmirdesen.com/kariyer"
+        openGraph={{
+          url: 'https://www.izmirdesen.com/kariyer',
+          title: 'Kariyer | İzmirde Sen',
+          description: 'İzmirde Sen ekibine katılın! Başvuru formunu doldurarak bize katılın.',
+          images: [
+            {
+              url: 'https://www.izmirdesen.com/og-image.png',
+              width: 1200,
+              height: 630,
+              alt: 'İzmirde Sen - Kariyer',
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       {/* Hero Section */}
       <div className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">

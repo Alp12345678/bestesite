@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import fs from 'fs';
 import path from 'path';
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { unified } from 'unified';
@@ -16,6 +15,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { FaChevronUp, FaChevronDown, FaCalendarAlt, FaUser, FaArrowLeft } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { NextSeo, ArticleJsonLd } from 'next-seo';
 
 interface Props {
   content: string;
@@ -53,12 +53,46 @@ export default function BlogPost({
     }
   }
 
+  const canonicalUrl = `https://www.izmirdesen.com/blog/${slug}`;
+  const imageUrl = image || 'https://www.izmirdesen.com/og-image.png';
+
   return (
     <>
-      <Head>
-        <title>{`${title} | İzmirde Sen`}</title>
-        <meta name="description" content={description || `${title} hakkında detaylı bilgiler.`} />
-      </Head>
+      <NextSeo
+        title={`${title} | İzmirde Sen`}
+        description={description || `${title} hakkında detaylı bilgiler.`}
+        canonical={canonicalUrl}
+        openGraph={{
+          type: 'article',
+          url: canonicalUrl,
+          title: `${title} | İzmirde Sen`,
+          description: description || `${title} hakkında detaylı bilgiler.`,
+          article: {
+            publishedTime: date,
+            authors: [author],
+            tags: tags,
+          },
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+      />
+      <ArticleJsonLd
+        type="BlogPosting"
+        url={canonicalUrl}
+        title={title}
+        images={[imageUrl]}
+        datePublished={date}
+        dateModified={date}
+        authorName={author}
+        description={description || `${title} hakkında detaylı bilgiler.`}
+      />
 
       <div className="min-h-screen bg-[#F9FAFB] pb-20 pt-32">
         <div className="container mx-auto px-4">

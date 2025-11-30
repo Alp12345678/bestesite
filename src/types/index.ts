@@ -40,9 +40,9 @@ export type DeleteModalType = 'mekan_sil' | 'dugun_sil' | 'etkinlik_sil';
 export interface MekanVerisi {
   id?: string;
   baslik: string;
-  url?: string; // Slug: \"grand-hotel-izmir\"
+  url?: string; // Slug: "grand-hotel-izmir"
   resim: string; // Görsel URL - REQUIRED
-  kapak: string; // Kapak görseli - REQUIRED
+  kapak: string; // Kapak görseli - REQUIRED (OG Image için de kullanılır)
   kategori: string;
   ilce: string;
   adres: string;
@@ -52,13 +52,13 @@ export interface MekanVerisi {
   facebook: string;
   email: string;
   konum?: Konum;
-  koordinat?: string; // \"38.4262, 27.1365\" formatında
+  koordinat?: string; // "38.4262, 27.1365" formatında
   maps: string;
-  fiyat?: string; // \"75.000 ₺\" veya \"500 ₺\"
+  fiyat?: string; // "75.000 ₺" veya "500 ₺"
   durum?: 'aktif' | 'pasif';
   populer?: boolean;
   tarih?: string; // Etkinlikler için
-  ozellikler: string[]; // \"Wifi\", \"Otopark\" vb.
+  ozellikler: string[]; // "Wifi", "Otopark" vb.
   aciklama: string; // Detay sayfası için açıklama
   galeri: string[]; // Detay sayfası için galeri görselleri
   createdAt?: any;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import { FaPaperPlane, FaCheckCircle, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { NextSeo } from 'next-seo';
+import { LocalBusinessJsonLd } from 'next-seo';
 
 export default function Iletisim() {
   const [submitted, setSubmitted] = useState(false);
@@ -85,13 +86,54 @@ export default function Iletisim() {
 
   return (
     <>
-      <Head>
-        <title>İletişim | İzmirde Sen</title>
-        <meta
-          name="description"
-          content="İzmirde Sen ile iletişime geçin. Soru, görüş ve önerileriniz için bize ulaşın."
-        />
-      </Head>
+      <NextSeo
+        title="İletişim | İzmirde Sen"
+        description="İzmirde Sen ile iletişime geçin. Sorularınız için bize ulaşın."
+        canonical="https://www.izmirdesen.com/iletisim"
+        openGraph={{
+          url: 'https://www.izmirdesen.com/iletisim',
+          title: 'İletişim | İzmirde Sen',
+          description:
+            'İzmirde Sen ile iletişime geçin. Soru, görüş ve önerileriniz için bize ulaşın.',
+          images: [
+            {
+              url: 'https://www.izmirdesen.com/og-image.png',
+              width: 1200,
+              height: 630,
+              alt: 'İzmirde Sen - İletişim',
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
+      <LocalBusinessJsonLd
+        type="Organization"
+        id="https://www.izmirdesen.com"
+        name="İzmirde Sen"
+        description="İzmir'in nabzını tutan etkinlik ve mekan rehberi"
+        url="https://www.izmirdesen.com"
+        telephone="+905052555079"
+        address={{
+          streetAddress: 'İsmet Kaptan Mah. Gazi Osman Paşa Blv. No:3 D:812',
+          addressLocality: 'Konak',
+          addressRegion: 'İzmir',
+          postalCode: '35210',
+          addressCountry: 'TR',
+        }}
+        geo={{
+          latitude: '38.4260832',
+          longitude: '27.1340301',
+        }}
+        images={['https://www.izmirdesen.com/og-image.png']}
+        sameAs={[
+          'https://twitter.com/izmirdesen',
+          'https://www.instagram.com/izmirdesen',
+          'https://www.facebook.com/izmirdesen',
+        ]}
+      />
 
       {/* Hero Section */}
       <div className="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">

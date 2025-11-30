@@ -54,7 +54,7 @@ const menuItems: MenuItem[] = [
 const Background = () => (
   <div className="absolute inset-0 z-0">
     <Image
-      src="/carousel/1.webp"
+      src="/carousel.webp"
       alt="İzmir Manzarası"
       fill
       priority

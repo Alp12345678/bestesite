@@ -10,7 +10,7 @@ export default function AboneOl() {
       {/* Arkaplan Deseni - Opaklığı düşürüldü */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <Image
-          src="/abone/1.webp" // Mevcut görseli desen olarak kullanıyoruz
+          src="/abone.webp" // Mevcut görseli desen olarak kullanıyoruz
           alt="Pattern"
           fill
           className="object-cover grayscale"

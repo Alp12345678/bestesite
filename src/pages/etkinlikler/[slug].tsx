@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { MekanVerisi } from '@/types';
 import DetayLayout from '@/components/Genel/DetayLayout';
+import { NextSeo } from 'next-seo';
 
 interface EtkinlikDetayProps {
   etkinlik: MekanVerisi | null;
@@ -30,18 +30,42 @@ export default function EtkinlikDetay({ etkinlik }: EtkinlikDetayProps) {
     );
   }
 
+  // Description oluştur - 70-155 karakter arası
+  const createDescription = () => {
+    if (etkinlik.aciklama && etkinlik.aciklama.length >= 70) {
+      return etkinlik.aciklama.length > 155
+        ? etkinlik.aciklama.substring(0, 152) + '...'
+        : etkinlik.aciklama;
+    }
+    return `${etkinlik.baslik} - İzmir'deki güncel etkinlikler. Tarih, yer ve detaylı bilgi için tıklayın.`;
+  };
+
+  const imageUrl = etkinlik.kapak || 'https://www.izmirdesen.com/og-image.png';
+
   return (
     <>
-      <Head>
-        <title>{`${etkinlik.baslik} | İzmirde Sen`}</title>
-        <meta
-          name="description"
-          content={
-            etkinlik.aciklama ||
-            `${etkinlik.baslik} hakkında detaylı bilgiler, bilet fiyatları ve konum.`
-          }
-        />
-      </Head>
+      <NextSeo
+        title={`${etkinlik.baslik} | İzmirde Sen`}
+        description={createDescription()}
+        canonical={`https://www.izmirdesen.com/etkinlikler/${etkinlik.url}`}
+        openGraph={{
+          url: `https://www.izmirdesen.com/etkinlikler/${etkinlik.url}`,
+          title: `${etkinlik.baslik} | İzmirde Sen`,
+          description: createDescription(),
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: etkinlik.baslik,
+            },
+          ],
+          siteName: 'İzmirde Sen',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <DetayLayout data={etkinlik} type="etkinlik" />
     </>
